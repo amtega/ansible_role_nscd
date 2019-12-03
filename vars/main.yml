@@ -1,2 +1,7 @@
 ---
 # Role variables
+
+nscd_config_file: /etc/nscd.conf
+nscd_default_conf_file: "nscd_conf_default.j2"
+
+nscd_service_name: "nscd.service"

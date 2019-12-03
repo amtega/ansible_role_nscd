@@ -1,0 +1,22 @@
+---
+
+- debug:
+    var: nscd_param_string
+    verbosity: 1
+  vars:
+    nscd_param_string: "{{item.name}} {{item.value}}"
+
+- set_fact:
+    nscd_param_string: "^\\s*{{item.name}}\\s*{{item.value}}"
+
+- lineinfile:
+    path: "{{nscd_config_file}}"
+    regexp: "{{nscd_param_string}}"
+    state: absent
+  when: item.state == 'absent'
+
+- lineinfile:
+    line: "{{item.name}} {{item.value}}"
+    path: "{{nscd_config_file}}"
+    state: present
+  when: item.state == 'present'
