@@ -1,2 +1,9 @@
 ---
-# Role tasks
+
+- name: "install nscd"
+  include_tasks: nscd_install.yml
+  when: nscd_state == 'present'
+
+- name: "remove nscd"
+  include_tasks: nscd_remove.yml
+  when: nscd_state == 'absent'
