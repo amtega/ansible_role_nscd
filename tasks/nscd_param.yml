@@ -9,13 +9,15 @@
 - set_fact:
     nscd_param_string: "^\\s*{{item.name}}\\s*{{item.value}}"
 
-- lineinfile:
+- name: "remove parameters"
+  lineinfile:
     path: "{{nscd_config_file}}"
     regexp: "{{nscd_param_string}}"
     state: absent
   when: item.state == 'absent'
 
-- lineinfile:
+- name: "set required parameters"
+  lineinfile:
     line: "{{item.name}} {{item.value}}"
     path: "{{nscd_config_file}}"
     state: present

@@ -1,16 +1,24 @@
 ---
 # Role default lower priority variables
 
+# wether to install or uninstall nscd service
+# values: present | absent
 nscd_state: present
+
+# configuration parameters for nscd config file
+# nscd_config_param:
+#  - name: logfile # parameter name
+#    value: /var/log/nscd.log # parameter value
+#    state: present # if the parameter must be present or absent
 
 nscd_config_param:
   - name: logfile
     value: /var/log/nscd.log
     state: present
 
-  - name: "enable-cache"
-    value: ""
-    state: absent
+  # - name: "enable-cache"
+  #   value: ""
+  #   state: absent
   - name: "enable-cache"
     value: "hosts yes"
     state: present
