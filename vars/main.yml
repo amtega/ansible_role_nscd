@@ -2,10 +2,7 @@
 # Role variables
 
 # nscd config file path
-nscd_config_file: /etc/nscd.conf
+nscd_config_path: /etc/nscd.conf
 
-# template for initial configuration of nscd
-nscd_default_conf_file: "nscd_conf_default.j2"
-
-# system service name
-nscd_service_name: "nscd.service"
+# System service name
+nscd_service_name: nscd

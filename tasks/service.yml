@@ -1,0 +1,11 @@
+---
+# Role service tasks
+
+- name: Setup nscd service
+  service:
+    name: "{{ nscd_service_name }}"
+    enabled: yes
+    state: started
+  tags:
+    - role::nscd
+    - role::nscd::service
