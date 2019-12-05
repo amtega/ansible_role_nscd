@@ -1,0 +1,14 @@
+---
+# Role configure tasks
+
+- block:
+    - name: Setup nscd config file
+      template:
+        src: nscd.conf.j2
+        dest: "{{ nscd_config_path }}"
+        owner: root
+        group: root
+        mode: 0644
+  tags:
+    - role::nscd
+    - role::nscd::configure
