@@ -1,0 +1,33 @@
+---
+# Role tasks
+
+- name: "Read vars for: "
+  include_vars:
+    file: centos-6.yml
+  when: ansible_facts['distribution'] == 'CentOS'
+    and ansible_facts['distribution_major_version'] == '6'
+
+- name: "install nscd package"
+  include_role:
+    name: amtega.packages
+  vars:
+    packages_os:
+      all:
+        all:
+          nscd: present
+
+- name: "setup default configuration file"
+  template:
+    src: "{{nscd_default_conf_file}}"
+    dest: "{{nscd_config_file}}"
+    backup: yes
+
+- name: "configure nscd parameters"
+  include_tasks: nscd_param.yml
+  with_items: "{{nscd_config_param}}"
+
+- name: "run service"
+  service:
+    name: nscd
+    enabled: yes
+    state: started
