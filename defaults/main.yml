@@ -28,9 +28,6 @@ nscd_config:
   - name:  suggested-size
     value: hosts 211
 
-  - name:  suggested-size
-    value: hosts 211
-
   - name: server-user
     value: nscd
 
