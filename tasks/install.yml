@@ -1,0 +1,13 @@
+---
+# Role install tasks
+
+- include_role:
+    name: amtega.packages
+  vars:
+    packages_os:
+      all:
+        all:
+          nscd: present
+  tags:
+    - role::nscd
+    - role::nscd::install

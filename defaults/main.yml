@@ -1,45 +1,53 @@
 ---
 # Role default lower priority variables
 
-# wether to install or uninstall nscd service
-# values: present | absent
+# Wether to setup or remove nscd service. Can be present or absent
+
 nscd_state: present
 
-# configuration parameters for nscd config file
-# nscd_config_param:
-#  - name: logfile # parameter name
-#    value: /var/log/nscd.log # parameter value
-#    state: present # if the parameter must be present or absent
+# List of dicts with te configuration parameters for nscd. The dist must follow
+# this structure:
+# {
+#   name: <name>          # Parameter name
+#   value: <value>        # Parameter value
+# }
 
-nscd_config_param:
+nscd_config:
   - name: logfile
     value: /var/log/nscd.log
-    state: present
 
-  # - name: "enable-cache"
-  #   value: ""
-  #   state: absent
-  - name: "enable-cache"
-    value: "hosts yes"
-    state: present
+  - name: enable-cache
+    value: hosts yes
 
-  - name: "positive-time-to-live"
-    value: ""
-    state: absent
-  - name: "positive-time-to-live"
-    value: "hosts 1800"
-    state: present
+  - name: positive-time-to-live
+    value: hosts 1800
 
-  - name: "negative-time-to-live"
-    value: ""
-    state: absent
-  - name: "negative-time-to-live"
-    value: "hosts 1800"
-    state: present
+  - name: negative-time-to-live
+    value: hosts 1800
 
-  - name:  "suggested-size"
-    value: ""
-    state: absent
-  - name:  "suggested-size"
-    value: "hosts 211"
-    state: present
+  - name:  suggested-size
+    value: hosts 211
+
+  - name:  suggested-size
+    value: hosts 211
+
+  - name: server-user
+    value: nscd
+
+  - name: debug-level
+    value: 0
+
+  - name: paranoia
+    value: no
+
+  - name: check-files
+    value: hosts yes
+
+  - name: persistent
+    value: hosts yes
+
+  - name: shared
+    value: hosts yes
+
+  - name: max-db-size
+    value: hosts 33554432

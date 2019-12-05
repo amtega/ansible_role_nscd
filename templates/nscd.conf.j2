@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+{% for param in nscd_config %}
+{{ param.name}} {{ param.value }}
+{% endfor %}
