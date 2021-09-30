@@ -1,11 +1,9 @@
 ---
-# Role service tasks
-
+# Role handlers
 - name: Setup nscd service
   service:
     name: "{{ nscd_service_name }}"
     enabled: yes
-    state: started
-  tags:
-    - role::nscd
-    - role::nscd::service
+    state: restarted
+  listen:
+    - nscd restart

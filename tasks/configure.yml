@@ -9,6 +9,7 @@
         owner: root
         group: root
         mode: 0644
+      notify: nscd restart
   tags:
     - role::nscd
     - role::nscd::configure

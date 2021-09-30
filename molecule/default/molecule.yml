@@ -1,0 +1,129 @@
+---
+
+dependency:
+  name: galaxy
+  enabled: yes
+  options:
+    ignore-certs: yes
+    ignore-errors: yes
+    role-file: "${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml"
+    requirements-file: "${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml"
+driver:
+  name: docker
+lint: "${MOLECULE_SCENARIO_DIRECTORY}/linters.sh"
+platforms:
+  - name: "centos6-${INSTANCE_UUID:-1}"
+    image: centos:6
+    dockerfile: Dockerfile.centos6.j2
+    groups:
+      - molecule_hosts
+      - molecule_hosts_centos
+      - molecule_hosts_centos_6
+  - name: "centos7-${INSTANCE_UUID:-1}"
+    image: centos:7
+    # Only required for systemd enabled containers
+    dockerfile: Dockerfile.systemd.j2
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - molecule_hosts
+      - molecule_hosts_centos
+      - molecule_hosts_centos_7
+  - name: "centos8-${INSTANCE_UUID:-1}"
+    image: centos:8
+    # Only required for systemd enabled containers
+    dockerfile: Dockerfile.systemd.j2
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - molecule_hosts
+      - molecule_hosts_centos
+      - molecule_hosts_centos_8
+  - name: "fedora33-${INSTANCE_UUID:-1}"
+    image: fedora:33
+    # Only required for systemd enabled containers
+    dockerfile: Dockerfile.systemd.j2
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - molecule_hosts
+      - molecule_hosts_fedora
+      - molecule_hosts_fedora_33
+  - name: "fedora34-${INSTANCE_UUID:-1}"
+    image: fedora:34
+    # Only required for systemd enabled containers
+    dockerfile: Dockerfile.systemd.j2
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - molecule_hosts
+      - molecule_hosts_fedora
+      - molecule_hosts_fedora_34
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      callback_enabled: profile_tasks
+      action_plugins: $PWD/action_plugins
+  inventory:
+    hosts:
+      molecule_hosts:
+        vars:
+          nscd_state: present
+          nscd_config:
+            - name: logfile
+              value: /var/log/nscd.log
+
+            - name: enable-cache
+              value: hosts yes
+
+            - name: positive-time-to-live
+              value: hosts 1800
+
+            - name: negative-time-to-live
+              value: hosts 1800
+
+            - name:  suggested-size
+              value: hosts 211
+
+            - name: server-user
+              value: nscd
+
+            - name: debug-level
+              value: 0
+
+            - name: paranoia
+              value: no
+
+            - name: check-files
+              value: hosts yes
+
+            - name: persistent
+              value: hosts yes
+
+            - name: shared
+              value: hosts yes
+
+            - name: max-db-size
+              value: hosts 33554432
+      molecule_hosts_fedora:
+        vars:
+          ansible_python_interpreter: /usr/bin/python3
+verifier:
+  name: ansible
