@@ -1,4 +1,4 @@
-# Ansible <!-- this role name --> role
+# Ansible nscd role
 
 This is an [Ansible](http://www.ansible.com) role to setup linux name service cache daemon (nscd).
 
@@ -16,25 +16,23 @@ This is an example playbook:
 - hosts: all
   roles:
     - role: amtega.nscd
-        nscd_state: present
-        nscd_config:
-          - name: logfile
-            value: /var/log/nscd.log
-            state: present
-          - name: "enable-cache"
-            value: "hosts yes"
-            state: present
+      nscd_state: present
+      nscd_config:
+        - name: logfile
+          value: /var/log/nscd.log
+          state: present
+        - name: "enable-cache"
+          value: "hosts yes"
+          state: present
 ```
 
 ## Testing
-
-<Tests are based on vagrant virtual machines. You can setup vagrant engine quickly using the playbook `files/setup.yml` available in the role [amtega.vagrant_engine](https://galaxy.ansible.com/amtega/vagrant_engine).
-
-Once you have vagrant, you can run the tests with the following commands:
+Tests are based on [molecule with docker containers](https://molecule.readthedocs.io/en/latest/installation.html).
 
 ```shell
-$ cd tests
-$ ansible-playbook main.yml
+cd amtega.nscd
+
+molecule test
 ```
 
 ## License

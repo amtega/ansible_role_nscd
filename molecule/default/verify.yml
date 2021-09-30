@@ -1,0 +1,29 @@
+---
+
+- name: Verify
+  hosts: molecule_hosts
+  gather_facts: no
+  tasks:
+    - name: Gather service facts
+      service_facts:
+
+    - name: Assert nscd service is running
+      assert:
+        that:
+          - >-
+            (ansible_facts.services["nscd"]
+            | default(ansible_facts.services["nscd.service"]))
+            .state == "running"
+      when: ansible_facts.distribution_major_version is version("6", ">")
+
+    - name: Read configuration file
+      command: "cat /etc/nscd.conf"
+      register: read_nscd_config_result
+      changed_when: no
+
+    - name: Assert config options are present
+      assert:
+        that: nscd_config_file is search (item.name + " " + item.value | string)
+      loop: "{{ nscd_config }}"
+      vars:
+        nscd_config_file: "{{ read_nscd_config_result.stdout }}"
