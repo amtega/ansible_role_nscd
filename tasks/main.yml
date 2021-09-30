@@ -12,11 +12,6 @@
       tags:
         - role::nscd::configure
 
-    - include_tasks: service.yml
-      when: nscd_state == "present"
-      tags:
-        - role::nscd::service
-
     - name: Remove nscd
       include_tasks: uninstall.yml
       when: nscd_state == 'absent'
