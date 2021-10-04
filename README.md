@@ -32,12 +32,12 @@ Tests are based on [molecule with docker containers](https://molecule.readthedoc
 ```shell
 cd amtega.nscd
 
-molecule test
+molecule test --all
 ```
 
 ## License
 
-Copyright (C) 2019 AMTEGA - Xunta de Galicia
+Copyright (C) 2021 AMTEGA - Xunta de Galicia
 
 This role is free software: you can redistribute it and/or modify it under the terms of:
 

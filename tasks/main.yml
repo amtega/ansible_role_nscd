@@ -2,19 +2,18 @@
 # Role tasks
 
 - block:
-    - include_tasks: install.yml
-      when: nscd_state == "present"
-      tags:
-        - role::nscd::install
+    - block:
+        - include_tasks: install.yml
+          tags:
+            - role::nscd::install
 
-    - include_tasks: configure.yml
+        - include_tasks: configure.yml
+          tags:
+            - role::nscd::configure
       when: nscd_state == "present"
-      tags:
-        - role::nscd::configure
 
-    - name: Remove nscd
-      include_tasks: uninstall.yml
-      when: nscd_state == 'absent'
+    - include_tasks: uninstall.yml
+      when: nscd_state == "absent"
       tags:
         - role::nscd::uninstall
   tags:

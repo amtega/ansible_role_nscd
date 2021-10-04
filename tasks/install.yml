@@ -1,7 +1,7 @@
 ---
 # Role install tasks
 
-- name: install nscd daemon
+- name: Setup nscd daemon
   include_role:
     name: amtega.packages
   vars:
