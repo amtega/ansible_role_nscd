@@ -21,7 +21,6 @@ platforms:
       - molecule_hosts_centos_6
   - name: "centos7-${INSTANCE_UUID:-1}"
     image: centos:7
-    # Only required for systemd enabled containers
     dockerfile: Dockerfile.systemd.j2
     command: /sbin/init
     tmpfs:
@@ -35,7 +34,6 @@ platforms:
       - molecule_hosts_centos_7
   - name: "centos8-${INSTANCE_UUID:-1}"
     image: centos:8
-    # Only required for systemd enabled containers
     dockerfile: Dockerfile.systemd.j2
     command: /sbin/init
     tmpfs:
@@ -49,7 +47,6 @@ platforms:
       - molecule_hosts_centos_8
   - name: "fedora33-${INSTANCE_UUID:-1}"
     image: fedora:33
-    # Only required for systemd enabled containers
     dockerfile: Dockerfile.systemd.j2
     command: /sbin/init
     tmpfs:
@@ -63,7 +60,6 @@ platforms:
       - molecule_hosts_fedora_33
   - name: "fedora34-${INSTANCE_UUID:-1}"
     image: fedora:34
-    # Only required for systemd enabled containers
     dockerfile: Dockerfile.systemd.j2
     command: /sbin/init
     tmpfs:
