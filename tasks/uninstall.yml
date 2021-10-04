@@ -8,7 +8,8 @@
         enabled: no
         state: stopped
 
-    - include_role:
+    - name: uninstal ncsd daemon
+      include_role:
         name: amtega.packages
       vars:
         packages_os:
