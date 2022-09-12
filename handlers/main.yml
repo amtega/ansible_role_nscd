@@ -2,7 +2,7 @@
 # Role handlers
 
 - name: Setup nscd service
-  service:
+  ansible.builtin.service:
     name: "{{ nscd_service_name }}"
     enabled: yes
     state: restarted

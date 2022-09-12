@@ -1,8 +1,7 @@
 ---
-# Role install tasks
 
 - name: Setup nscd daemon
-  include_role:
+  ansible.builtin.include_role:
     name: amtega.packages
   vars:
     packages_os:

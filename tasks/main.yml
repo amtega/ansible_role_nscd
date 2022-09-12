@@ -1,18 +1,20 @@
 ---
-# Role tasks
 
-- block:
-    - block:
-        - include_tasks: install.yml
+- name: Setup nscd
+  block:
+    - name: Manage nscd present state
+      block:
+        - ansible.builtin.include_tasks: install.yml
           tags:
             - role::nscd::install
 
-        - include_tasks: configure.yml
+        - ansible.builtin.include_tasks: configure.yml
           tags:
             - role::nscd::configure
       when: nscd_state == "present"
 
-    - include_tasks: uninstall.yml
+    - name: Manage nscd absent state
+      ansible.builtin.include_tasks: uninstall.yml
       when: nscd_state == "absent"
       tags:
         - role::nscd::uninstall
