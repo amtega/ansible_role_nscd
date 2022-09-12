@@ -5,10 +5,10 @@
   gather_facts: yes
   tasks:
     - name: Gather service facts
-      service_facts:
+      ansible.builtin.service_facts:
 
     - name: Assert nscd service is running
-      assert:
+      ansible.builtin.assert:
         quiet: yes
         that:
           - >-
@@ -18,12 +18,12 @@
       when: ansible_facts.distribution_major_version is version("6", ">")
 
     - name: Read configuration file
-      command: "cat /etc/nscd.conf"
+      ansible.builtin.command: "cat /etc/nscd.conf"
       register: read_nscd_config_result
       changed_when: no
 
     - name: Assert config options are present
-      assert:
+      ansible.builtin.assert:
         quiet: yes
         that: nscd_config_file is search (item.name + " " + item.value | string)
       loop: "{{ nscd_config }}"
