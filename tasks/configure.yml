@@ -1,15 +1,13 @@
 ---
-# Role configure tasks
 
-- block:
-    - name: Setup nscd config file
-      template:
-        src: nscd.conf.j2
-        dest: "{{ nscd_config_path }}"
-        owner: root
-        group: root
-        mode: 0644
-      notify: nscd restart
+- name: Setup nscd config file
+  ansible.builtin.template:
+    src: nscd.conf.j2
+    dest: "{{ nscd_config_path }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: nscd restart
   tags:
     - role::nscd
     - role::nscd::configure
